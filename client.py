@@ -8,9 +8,12 @@ import socket
 import sys
 
 # Constantes. Dirección IP del servidor y contenido a enviar
-SERVER = sys.argv[1]
-PORT = int(sys.argv[2])
-LINE = " ".join(sys.argv[3:])
+try:
+    SERVER = sys.argv[1]
+    PORT = int(sys.argv[2])
+    LINE = " ".join(sys.argv[3:])
+except:
+    sys.exit("Argument error")
 
 # Creamos el socket, lo configuramos y lo atamos a un servidor/puerto
 with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
