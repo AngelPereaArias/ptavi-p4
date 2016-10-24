@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-"""
-Programa cliente UDP que abre un socket a un servidor
-"""
+"""Programa cliente UDP que abre un socket a un servidor."""
 
 import socket
 import sys
@@ -26,7 +24,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
         Message += ("Expires: " + EXPIRES + "\r\n\r\n")
         print("Enviando:", Message)
         my_socket.send(bytes(Message, 'utf-8'))
-    
+
     data = my_socket.recv(1024)
     print('Recibido -- ', data.decode('utf-8'))
 
