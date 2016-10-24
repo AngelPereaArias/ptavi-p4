@@ -38,7 +38,7 @@ class SIPRegisterHandler(SS.DatagramRequestHandler):
             Dir = msg[msg.find("sip:") + 4: msg.rfind(" SIP/2.0")]
             Ip = self.client_address[0]
 
-            Exp = int(msg[msg.find("Expires: ") + 9 : msg.find("\r\n\r\n")])
+            Exp = int(msg[msg.find("Expires: ") + 9: msg.find("\r\n\r\n")])
             time_ex = Exp + int(time.time())
             str_ex = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(time_ex))
 
