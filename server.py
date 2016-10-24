@@ -15,15 +15,17 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
     def handle(self):
         self.wfile.write(b"Hemos recibido tu peticion")
         Dicc = {}
-        for line in self.rfile:
-            print("El cliente nos manda ", line.decode('utf-8'))
-            msg = line.decode('utf-8')
-            print(msg)
-            if msg[0:8] == "REGISTER":
-                Dicc = {self.client_address[0] : self.client_address[1]}
-                self.wfile.write(b"200 OK")
-                
-                
+        
+        msg = self.rfile.read().decode('utf-8')
+        print("El cliente nos manda ", msg)
+
+        if msg[:8] == "REGISTER":
+
+            Dir = msg[msg.find("sip:"): msg.rfind(" SIP/2.0")]
+            Dicc = {Dir : self.client_address[0]}
+            self.wfile.write(b"200 OK")
+        print(Dicc)
+
 
 if __name__ == "__main__":
     try:
