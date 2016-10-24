@@ -4,10 +4,10 @@
 Clase (y programa principal) para un servidor de eco en UDP simple
 """
 
-import socketserver
+import socketserver as SS
 import sys
 
-class SIPRegisterHandler(socketserver.DatagramRequestHandler):
+class SIPRegisterHandler(SS.DatagramRequestHandler):
     """
     Echo server class
     """
@@ -33,7 +33,7 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
 
 if __name__ == "__main__":
     try:
-        serv = socketserver.UDPServer(('', int(sys.argv[1])), SIPRegisterHandler)
+        serv = SS.UDPServer(('', int(sys.argv[1])), SIPRegisterHandler)
     except:
         sys.exit("Argument error")
 
