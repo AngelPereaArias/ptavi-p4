@@ -11,15 +11,22 @@ import sys
 try:
     SERVER = sys.argv[1]
     PORT = int(sys.argv[2])
-    LINE = " ".join(sys.argv[3:])
+    MSG_TYPE = sys.argv[3]
+    DIRECCTION = sys.argv[4]
+    EXPIRES = sys.argv[5]
+
 except:
-    sys.exit("Argument error")
+    sys.exit("Usage: client.py ip puerto register sip_address expires_value")
 
 # Creamos el socket, lo configuramos y lo atamos a un servidor/puerto
 with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
     my_socket.connect((SERVER, PORT))
-    print("Enviando:", LINE)
-    my_socket.send(bytes(LINE, 'utf-8') + b'\r\n')
+    if MSG_TYPE == "register":
+        Message = ("REGISTER sip:" + DIRECCTION + " SIP/2.0\r\n")
+        Message += ("Expires: " + EXPIRES + "\r\n\r\n")
+        print("Enviando:", Message)
+        my_socket.send(bytes(Message, 'utf-8'))
+    
     data = my_socket.recv(1024)
     print('Recibido -- ', data.decode('utf-8'))
 
